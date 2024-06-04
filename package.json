@@ -1,6 +1,6 @@
 {
   "name": "nespoma_api",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Sample API with NestJs, PostgreSQL and Prisma",
   "author": {
     "name": "Syihab Muchsin",
@@ -8,7 +8,11 @@
   },
   "private": true,
   "license": "GPL-3.0",
-  "keywords": ["NestJs","PostgreSQL","Prisma"],
+  "keywords": [
+    "NestJs",
+    "PostgreSQL",
+    "Prisma"
+  ],
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
