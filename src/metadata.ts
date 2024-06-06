@@ -1,31 +1,5 @@
 /* eslint-disable */
 export default async () => {
-  const t = {};
-  return {
-    '@nestjs/swagger': {
-      models: [
-        [import('./users/dto/create-user.dto'), { CreateUserDto: {} }],
-        [import('./users/dto/update-user.dto'), { UpdateUserDto: {} }],
-        [import('./users/entities/user.entity'), { User: {} }],
-      ],
-      controllers: [
-        [
-          import('./app.controller'),
-          { AppController: { root: {}, readme: {} } },
-        ],
-        [
-          import('./users/users.controller'),
-          {
-            UsersController: {
-              create: { type: String },
-              findAll: { type: String },
-              findOne: { type: String },
-              update: { type: String },
-              remove: { type: String },
-            },
-          },
-        ],
-      ],
-    },
-  };
+    const t = {};
+    return { "@nestjs/swagger": { "models": [[import("./users/dto/create-user.dto"), { "CreateUserDto": { email: { required: true, type: () => String }, name: { required: true, type: () => String }, roleId: { required: true, type: () => String }, modifiedBy: { required: false, type: () => String } } }], [import("./users/dto/update-user.dto"), { "UpdateUserDto": { email: { required: false, type: () => String }, name: { required: false, type: () => String }, roleId: { required: true, type: () => String }, deletedAt: { required: false, type: () => String }, modifiedBy: { required: false, type: () => String } } }], [import("./roles/dto/create-role.dto"), { "CreateRoleDto": { title: { required: true, type: () => String }, description: { required: false, type: () => String }, modifiedBy: { required: false, type: () => String } } }], [import("./roles/dto/update-role.dto"), { "UpdateRoleDto": { title: { required: true, type: () => String }, description: { required: false, type: () => String }, deletedAt: { required: false, type: () => String }, modifiedBy: { required: false, type: () => String } } }], [import("./roles/entities/role.entity"), { "Role": {} }], [import("./users/entities/user.entity"), { "User": {} }]], "controllers": [[import("./app.controller"), { "AppController": { "root": {}, "readme": {} } }], [import("./users/users.controller"), { "UsersController": { "create": {}, "findAll": {}, "findOne": { type: Object }, "update": {}, "remove": {} } }], [import("./roles/roles.controller"), { "RolesController": { "create": {}, "findAll": {}, "findOne": { type: Object }, "update": {}, "remove": {} } }]] } };
 };

@@ -1,0 +1,13 @@
+model Role {
+  id          String    @id @unique @default(cuid())
+  title       String    @unique
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+  deletedAt   DateTime?
+  modifiedBy  String?
+  users       User[]
+  modifier    User?     @relation("roleModifier", fields: [modifiedBy], references: [id])
+
+  @@map("roles")
+}

@@ -1,0 +1,16 @@
+model User {
+  id            String    @id @unique @default(cuid())
+  email         String    @unique
+  name          String
+  roleId        String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now())
+  deletedAt     DateTime?
+  modifiedBy    String?
+  role          Role?     @relation(fields: [roleId], references: [id])
+  modifier      User?     @relation("userModifier", fields: [modifiedBy], references: [id])
+  modifiedUsers User[]    @relation("userModifier")
+  modifiedRoles Role[]    @relation("roleModifier")
+
+  @@map("users") // Maps the User model to the 'users' table
+}

@@ -1,22 +1,22 @@
-import { PrismaClient } from '@prisma/client';
-import { resolveSoa } from 'dns';
-import { throwError } from 'rxjs';
+import { PrismaClient, Role, User } from '@prisma/client';
 const prisma = new PrismaClient();
 async function main() {
-  const newRoles = await prisma.role.createManyAndReturn({
+  const createRoles: Role[] = await prisma.role.createManyAndReturn({
     data: [
       { title: 'admin', description: 'Admin' },
       { title: 'customer', description: 'Customer' },
     ],
   });
 
+  console.log('Seed Roles --->', createRoles);
+
+  const createdRoles: Role[] = createRoles;
   const roles = {
-    admin: (newRoles.find(({ title }) => title === 'admin') || {}).cuid || null,
-    customer:
-      (newRoles.find(({ title }) => title === 'customer') || {}).cuid || null,
+    admin: (createdRoles.find(({ title }) => title === 'admin') || {}).id,
+    customer: (createdRoles.find(({ title }) => title === 'customer') || {}).id,
   };
 
-  const alice = await prisma.user.upsert({
+  const alice: User = await prisma.user.upsert({
     where: { email: 'alice@prisma.io' },
     update: {},
     create: {
@@ -25,7 +25,7 @@ async function main() {
       roleId: roles.admin,
     },
   });
-  const bob = await prisma.user.upsert({
+  const bob: User = await prisma.user.upsert({
     where: { email: 'bob@prisma.io' },
     update: {},
     create: {
@@ -34,7 +34,7 @@ async function main() {
       roleId: roles.customer,
     },
   });
-  const jane = await prisma.user.upsert({
+  const jane: User = await prisma.user.upsert({
     where: { email: 'jane@prisma.io' },
     update: {},
     create: {
@@ -43,7 +43,7 @@ async function main() {
       roleId: roles.customer,
     },
   });
-  console.log({ alice, bob, jane });
+  console.log('Seed Users --->', { alice, bob, jane });
 }
 main()
   .then(async () => {

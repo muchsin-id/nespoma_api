@@ -20,8 +20,8 @@
   },
   "include": [
     "src/**/*",
-    "test/**/*",
-    "configs/**/*"
+    "configs/**/*",
+    "prisma/**/*"
   ],
   "exclude": [
     "node_modules",
