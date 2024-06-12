@@ -1,5 +1,6 @@
 import { IsEmail, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsCuid } from '@custom/validators';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -17,14 +18,11 @@ export class CreateUserDto {
   name: string;
 
   @ApiProperty()
-  @IsString()
+  @IsCuid()
   roleId: string;
-
-  // @IsOptional()
-  // role?: CreateRoleDto;
 
   @ApiProperty()
   @IsOptional()
-  @IsString()
-  modifiedBy?: string;
+  @IsCuid()
+  modified_by?: string;
 }

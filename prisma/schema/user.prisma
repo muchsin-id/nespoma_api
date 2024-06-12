@@ -1,16 +1,17 @@
 model User {
-  id            String    @id @unique @default(cuid())
-  email         String    @unique
-  name          String
-  roleId        String
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now())
-  deletedAt     DateTime?
-  modifiedBy    String?
-  role          Role?     @relation(fields: [roleId], references: [id])
-  modifier      User?     @relation("userModifier", fields: [modifiedBy], references: [id])
-  modifiedUsers User[]    @relation("userModifier")
-  modifiedRoles Role[]    @relation("roleModifier")
+  id_seq         Int       @unique @default(autoincrement())
+  id             String    @id @unique @default(cuid())
+  email          String    @unique
+  name           String
+  roleId         String?
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @default(now())
+  deleted_at     DateTime?
+  modified_by    String?
+  role           Role?     @relation(fields: [roleId], references: [id], onDelete: SetNull)
+  modifier       User?     @relation("userModifier", fields: [modified_by], references: [id], onDelete: SetNull)
+  modified_users User[]    @relation("userModifier")
+  modified_roles Role[]    @relation("roleModifier")
 
-  @@map("users") // Maps the User model to the 'users' table
+  @@map("users") // Map the User model to the 'users' table
 }

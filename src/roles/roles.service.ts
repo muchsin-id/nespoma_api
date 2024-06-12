@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Role } from '@prisma/client';
-import { PrismaService } from '../prisma/prisma.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class RolesService {
@@ -20,11 +20,20 @@ export class RolesService {
     return this.prisma.role.findUnique({ where: { id } });
   }
 
-  async update(id: string, data: UpdateRoleDto): Promise<Role> {
+  async update(id: string, data: UpdateRoleDto): Promise<Role | null> {
     return this.prisma.role.update({ where: { id }, data });
   }
 
-  async remove(id: string) {
+  async delete(id: string): Promise<Role | null> {
     return this.prisma.role.delete({ where: { id } });
+  }
+
+  async softDelete(id: string): Promise<Role | null> {
+    return this.prisma.role.update({
+      where: { id },
+      data: {
+        deleted_at: new Date(),
+      },
+    });
   }
 }

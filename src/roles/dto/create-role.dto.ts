@@ -1,5 +1,6 @@
 import { IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsCuid } from '@custom/validators';
 
 export class CreateRoleDto {
   @ApiProperty()
@@ -13,6 +14,6 @@ export class CreateRoleDto {
 
   @ApiProperty()
   @IsOptional()
-  @IsString()
-  modifiedBy?: string;
+  @IsCuid()
+  modified_by?: string;
 }

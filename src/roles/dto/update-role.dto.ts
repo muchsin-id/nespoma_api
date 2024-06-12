@@ -10,8 +10,8 @@ export class UpdateRoleDto extends PartialType(CreateRoleDto) {
   description?: string;
 
   @ApiPropertyOptional()
-  deletedAt?: string;
+  deleted_at?: string;
 
   @ApiPropertyOptional()
-  modifiedBy?: string;
+  modified_by?: string;
 }

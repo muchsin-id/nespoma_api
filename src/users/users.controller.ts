@@ -10,7 +10,9 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('User')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -35,8 +37,13 @@ export class UsersController {
     return this.usersService.update(id, data);
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
+  @Delete(':id/force') //Force Delete
+  async delete(@Param('id') id: string) {
+    return this.usersService.delete(id);
+  }
+
+  @Delete(':id') //Soft Delete
+  async softDelete(@Param('id') id: string) {
+    return this.usersService.softDelete(id);
   }
 }

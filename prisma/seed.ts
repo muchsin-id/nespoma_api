@@ -4,6 +4,7 @@ async function main() {
   const createRoles: Role[] = await prisma.role.createManyAndReturn({
     data: [
       { title: 'admin', description: 'Admin' },
+      { title: 'support', description: 'Support' },
       { title: 'customer', description: 'Customer' },
     ],
   });
@@ -13,6 +14,7 @@ async function main() {
   const createdRoles: Role[] = createRoles;
   const roles = {
     admin: (createdRoles.find(({ title }) => title === 'admin') || {}).id,
+    support: (createdRoles.find(({ title }) => title === 'support') || {}).id,
     customer: (createdRoles.find(({ title }) => title === 'customer') || {}).id,
   };
 
@@ -31,7 +33,7 @@ async function main() {
     create: {
       email: 'bob@prisma.io',
       name: 'Bob',
-      roleId: roles.customer,
+      roleId: roles.support,
     },
   });
   const jane: User = await prisma.user.upsert({
@@ -43,7 +45,16 @@ async function main() {
       roleId: roles.customer,
     },
   });
-  console.log('Seed Users --->', { alice, bob, jane });
+  const jim: User = await prisma.user.upsert({
+    where: { email: 'jim@prisma.io' },
+    update: {},
+    create: {
+      email: 'jim@prisma.io',
+      name: 'Jim',
+      roleId: roles.customer,
+    },
+  });
+  console.log('Seed Users --->', { alice, bob, jane, jim });
 }
 main()
   .then(async () => {

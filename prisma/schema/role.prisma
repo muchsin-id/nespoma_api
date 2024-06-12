@@ -1,13 +1,14 @@
 model Role {
+  id_seq      Int       @unique @default(autoincrement())
   id          String    @id @unique @default(cuid())
   title       String    @unique
   description String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now())
-  deletedAt   DateTime?
-  modifiedBy  String?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now())
+  deleted_at  DateTime?
+  modified_by String?
   users       User[]
-  modifier    User?     @relation("roleModifier", fields: [modifiedBy], references: [id])
+  modifier    User?     @relation("roleModifier", fields: [modified_by], references: [id], onDelete: SetNull)
 
-  @@map("roles")
+  @@map("roles") // Map the Role model to the 'roles' table
 }

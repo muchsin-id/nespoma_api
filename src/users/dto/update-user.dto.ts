@@ -13,8 +13,8 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   roleId: string;
 
   @ApiPropertyOptional()
-  deletedAt?: string;
+  deleted_at?: string;
 
   @ApiPropertyOptional()
-  modifiedBy?: string;
+  modified_by?: string;
 }

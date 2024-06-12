@@ -1,6 +1,11 @@
-import { DocumentBuilder, SwaggerDocumentOptions } from '@nestjs/swagger';
+import { INestApplication } from '@nestjs/common';
+import {
+  SwaggerModule,
+  DocumentBuilder,
+  SwaggerDocumentOptions,
+} from '@nestjs/swagger';
 import * as fs from 'fs';
-import { AppModule } from './app.module';
+import { AppModule } from '../../app.module';
 
 // Function to extract resource names from controllers
 function extractResourceNames(): string[] {
@@ -42,3 +47,13 @@ export const swaggerOptions: SwaggerDocumentOptions = {
   deepScanRoutes: true,
   include: [],
 };
+
+export function swaggerSetup(path: string, application: INestApplication) {
+  const document = SwaggerModule.createDocument(
+    application,
+    swaggerConfig,
+    swaggerOptions,
+  );
+
+  SwaggerModule.setup(path, application, document);
+}

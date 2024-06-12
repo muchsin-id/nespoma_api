@@ -17,10 +17,35 @@
     "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@custom/middlewares": [
+        "src/common/middlewares/index.ts"
+      ],
+      "@custom/validators": [
+        "src/common/validators/index.ts"
+      ],
+      "@custom/decorators": [
+        "src/common/decorators/index.ts"
+      ],
+      "@custom/filters": [
+        "src/common/filters/index.ts"
+      ],
+      "@custom/guards": [
+        "src/common/guards/index.ts"
+      ],
+      "@custom/interceptors": [
+        "src/common/interceptors/index.ts"
+      ],
+      "@custom/pipes": [
+        "src/common/pipes/index.ts"
+      ],
+      "@custom/configs": [
+        "src/common/configs/index.ts"
+      ]
+    }
   },
   "include": [
     "src/**/*",
-    "configs/**/*",
     "prisma/**/*"
   ],
   "exclude": [
