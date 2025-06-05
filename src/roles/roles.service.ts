@@ -33,6 +33,7 @@ export class RolesService {
       where: { id },
       data: {
         deleted_at: new Date(),
+        deleted_by: 'Admin'
       },
     });
   }
